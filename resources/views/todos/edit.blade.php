@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Todo</title>
+    #<link rel="stylesheet" href="{{ asset('css/style.css') }}">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            font-size: 2em;
+            color: #333;
+        }
+        form {
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            border: none;
+            border-radius: 4px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        a {
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007bff;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Edit Todo</h1>
+
+    <form action="{{ route('todos.update', $todo) }}" method="POST">
+        @csrf
+        @method('PATCH')
+        <label for="task">Task:</label>
+        <input type="text" id="task" name="task" value="{{ $todo->task }}" required>
+        <label for="completed">
+            <input type="checkbox" id="completed" name="completed" {{ $todo->completed ? 'checked' : '' }}>
+            Completed
+        </label>
+        <button type="submit">Update Task</button>
+    </form>
+
+    <a href="{{ route('todos.index') }}">Back to Todo List</a>
+</body>
+</html>
